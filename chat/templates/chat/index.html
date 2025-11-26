@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'chat/chat.css' %}" />
+</head>
+<body>
+  <div class="chat-container" role="application" aria-label="Chat application">
+    <header class="chat-header" role="banner">
+      <div class="header-content">
+        <h1>Bot</h1>
+        <p class="header-subtitle">Made by Ratnakar</p>
+      </div>
+    </header>
+
+    <main class="chat-main">
+      <!-- messages area: THIS is the scrollable region -->
+      <section id="chatMessages" class="chat-messages" role="log" aria-live="polite" tabindex="0">
+        <!-- initial bot message (optional) -->
+        <article class="chat-bubble bot-bubble chat-bubble-enter" role="article" aria-label="Bot message">
+          <div class="bubble-content">
+            <p>Hello — ask me anything 👋</p>
+            <p class="timestamp"></p>
+          </div>
+        </article>
+
+        <!-- typing indicator (kept here so it flows with messages) -->
+        <div id="typingIndicator" class="typing-indicator" aria-hidden="true" style="display:none">
+          <div class="typing-content">
+            <div class="typing-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- input area (fixed at bottom) -->
+      <div class="chat-input-container">
+        <form id="chatForm" class="chat-input-form" method="post" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+          <!-- hidden file input; preview shown below -->
+          <input id="imageInput" name="image" type="file" accept="image/*" style="display:none" />
+
+          <div id="imagePreview" class="image-preview" style="display:none" aria-hidden="true">
+            <img id="previewImage" alt="Image preview">
+            <button type="button" id="removeImageBtn" class="remove-image" aria-label="Remove image">✕</button>
+          </div>
+
+          <button type="button" id="uploadBtn" class="image-upload-btn" aria-label="Upload image">📎</button>
+
+          <textarea id="messageInput" name="message" placeholder="Type your message..." rows="1" required aria-label="Message input"></textarea>
+
+          <button type="submit" id="sendBtn" class="send-btn" aria-label="Send message">Send</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="{% static 'chat/chat.js' %}" defer></script>
+</body>
+</html>
