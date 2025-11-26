@@ -1,6 +1,7 @@
 # Environment files
 .env
 .env.*
+ChatBot/.env
 # Database files
 db.sqlite3
 __pycache__/
